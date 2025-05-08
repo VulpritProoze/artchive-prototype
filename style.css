@@ -38,6 +38,10 @@
     margin: 0 auto;
     padding: 0 20px;
   }
+
+  .creative-showcase .container {
+    padding: 100px 20px;
+  }
   
   /* Typography */
   h1, h2, h3, h4 {
@@ -237,6 +241,7 @@
   /* Features Section */
   .features {
     padding: 100px 0;
+    background-color: var(--light);
   }
   
   .section-title {
@@ -283,7 +288,6 @@
   /* Community Section */
   .community {
     padding: 100px 0;
-    background-color: var(--light);
   }
   
   .section-subtitle {

@@ -597,13 +597,13 @@
 
         // Artist cards animation
         document.querySelectorAll('.artist-card').forEach((card, index) => {
-            new ScrollMagic.Scene({
-                triggerElement: card,
-                triggerHook: 0.8,
-                reverse: false
-            })
-            .setTween(gsap.from(card, {duration: 0.5, y: 50, opacity: 0, delay: index * 0.1, ease: 'power2.out'}))
-            .addTo(controller);
+            gsap.from(card, {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                ease: 'power2.out',
+                clearProps: "all" // This ensures GSAP cleans up after itself
+            });
         });
 
         // CTA section animation
@@ -787,81 +787,61 @@
             }
         }
 
-        // Update carousel based on active category
-        function updateCarouselForCategory(category) {
-            console.log(`Updating carousel for category: ${category}`);
-            activeCategory = category;
+        function updateVisibleSlides() {
             let visibleSlides = 0;
-            
-            // Debug: Log all items before filtering
-            console.log("All items before filtering:");
-            allArtItems.forEach((item, index) => {
-                console.log(`Item ${index}:`, {
-                    category: item.dataset.category,
-                    display: getComputedStyle(item).display,
-                    visibility: getComputedStyle(item).visibility,
-                    opacity: getComputedStyle(item).opacity
-                });
-            });
-            
-            // First reset all items
-            allArtItems.forEach(item => {
-                item.style.display = 'block';
-                item.style.opacity = '1';
-                item.style.visibility = 'visible';
-            });
-            
-            // Filter items based on category
-            allArtItems.forEach(item => {
-                const itemCategory = item.dataset.category;
-                const shouldShow = category === 'all' || itemCategory === category;
-                
-                console.log(`Item category: ${itemCategory}, should show: ${shouldShow}`);
-                
-                if (shouldShow) {
-                    item.style.display = 'block';
-                    item.style.opacity = '1';
-                    item.style.visibility = 'visible';
-                    // Ensure overlay is visible when filtered
-                    const overlay = item.querySelector('.art-overlay');
-                    if (overlay) {
-                        overlay.style.transform = 'translateY(100%)';
-                        console.log(`Reset overlay for item with category ${itemCategory}`);
-                    }
-                } else {
-                    item.style.display = 'none';
-                    item.style.opacity = '0';
-                    item.style.visibility = 'hidden';
-                    console.log(`Hiding item with category ${itemCategory}`);
-                }
-            });
-            
-            // Count how many slides have visible items
-            visibleSlides = 0;
-            artSlides.forEach((slide, slideIndex) => {
-                const itemsInSlide = slide.querySelectorAll('.art-item');
-                const visibleItems = Array.from(itemsInSlide).filter(item => 
-                    getComputedStyle(item).display !== 'none'
-                );
-                
-                console.log(`Slide ${slideIndex} has ${visibleItems.length} visible items`);
+            artSlides.forEach((slide, index) => {
+                const visibleItems = Array.from(slide.querySelectorAll('.art-item'))
+                    .filter(item => item.style.display !== 'none');
                 
                 if (visibleItems.length > 0) {
-                    visibleSlides++;
                     slide.style.display = 'flex';
+                    visibleSlides++;
                 } else {
                     slide.style.display = 'none';
                 }
             });
             
             totalSlides = visibleSlides;
-            console.log(`Total visible slides after filtering: ${totalSlides}`);
-            
             initializeDots();
-            
-            // Reset to first slide
-            artCurrentIndex = 0;
+            artCurrentIndex = Math.min(artCurrentIndex, totalSlides - 1); // Ensure current index is valid
             updateArtCarousel();
+        }
+
+        // Update carousel based on active category
+        function updateCarouselForCategory(category) {
+            console.log(`Updating carousel for category: ${category}`);
+            activeCategory = category;
+            
+            // First reset all items to default visible state
+            allArtItems.forEach(item => {
+                // Reset all potentially problematic styles
+                item.style.display = 'block';
+                item.style.opacity = '1';
+                item.style.visibility = 'visible';
+                item.style.transform = 'none';
+                
+                // Reset GSAP animations if used
+                gsap.killTweensOf(item);
+            });
+
+            // Now filter items
+            allArtItems.forEach(item => {
+                const itemCategory = item.dataset.category;
+                const shouldShow = category === 'all' || itemCategory === category;
+                
+                if (!shouldShow) {
+                    item.style.display = 'none';
+                } else {
+                    // Reset overlay position for visible items
+                    const overlay = item.querySelector('.art-overlay');
+                    if (overlay) {
+                        overlay.style.transform = 'translateY(100%)';
+                    }
+                }
+            });
+
+            // Update visible slides count and dots
+            updateVisibleSlides();
         }
 
         function updateArtCarousel() {
