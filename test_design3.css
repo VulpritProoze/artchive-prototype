@@ -1898,3 +1898,297 @@ body {
 .artist-bio {
     flex-grow: 1;
 }
+
+/*art-supplies*/
+/* Art Supplies Styles */
+.art-supplies-container {
+    padding: 20px;
+}
+
+.supplies-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.supplies-header h2 {
+    font-size: 24px;
+    color: var(--dark);
+}
+
+.supplies-filter {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-option {
+    padding: 8px 15px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-option.active {
+    background: var(--primary);
+    color: white;
+}
+
+.filter-option:hover {
+    background: #ddd;
+}
+
+.filter-option.active:hover {
+    background: var(--primary-dark);
+}
+
+.supply-category {
+    margin-bottom: 30px;
+}
+
+.supply-category h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.supply-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.supply-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.supply-item:hover {
+    transform: translateY(-5px);
+}
+
+.supply-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.supply-info {
+    padding: 15px;
+}
+
+.supply-info h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--dark);
+}
+
+.supply-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.price {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.rating {
+    color: #ffb400;
+}
+
+.supply-description {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 8px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background: var(--primary-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .supply-items {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .supplies-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .supplies-filter {
+        flex-wrap: wrap;
+    }
+    
+    .supply-items {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .supply-items {
+        grid-template-columns: 1fr;
+    }
+}   
+
+/*styles for collectors*/
+/* Collectors Page Styles */
+.collectors-container {
+    padding: 20px;
+}
+
+.collectors-container h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.collectors-container .subtitle {
+    color: #666;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.collectors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.collector-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.collector-card:hover {
+    transform: translateY(-5px);
+}
+
+.collector-header {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+}
+
+.collector-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #f8f8f8;
+}
+
+.collector-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.rating {
+    color: #FFD700;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.rating span {
+    color: #666;
+    margin-left: 5px;
+}
+
+.artist-type {
+    font-size: 13px;
+    color: #888;
+    display: block;
+}
+
+.featured-artwork {
+    position: relative;
+}
+
+.featured-artwork img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.artwork-info {
+    padding: 15px;
+    background: #f9f9f9;
+}
+
+.artwork-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.artwork-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+    margin-top: 8px;
+    color: #333;
+}
+
+.other-works {
+    padding: 15px;
+}
+
+.other-works h5 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.works-grid img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.works-grid img:hover {
+    opacity: 0.8;
+}
